@@ -7,7 +7,7 @@ class AlpacaWrapper(QuoteAPIProtocol):
     BASE_URL = "https://data.alpaca.markets/v2/stocks"
     # Do we want to include "stocks" in our "base url"? or have it as part of some url_path variable?
 
-    def get_quote(self, symbol: str) -> Quote:
+    def fetch_quote(self, symbol: str) -> Quote:
         url = f"{self.BASE_URL}/quotes/latest?symbols={symbol}"
         # and then should probably create a "url parameters" thing that stores symbols={symbol}
         # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
