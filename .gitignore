@@ -1,2 +1,6 @@
 # ignore PyCharm project level config folder
 .idea/
+
+# ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
