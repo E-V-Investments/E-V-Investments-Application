@@ -1,5 +1,6 @@
 import requests # TODO: Add requests to requirement.text
 from Quotes.QuoteAPIProtocol import QuoteAPIProtocol
+from Quotes.EnvironmentWrapper import EnvironmentVariable
 from models.quote import Quote
 
 
@@ -12,9 +13,11 @@ class AlpacaWrapper(QuoteAPIProtocol):
         # and then should probably create a "url parameters" thing that stores symbols={symbol}
         # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
 
+        environment_variable = EnvironmentVariable()
+
         headers = {
-            "APCA-API-KEY-ID": "yourAPIKeyGoesHere",
-            "APCA-API-SECRET-KEY": "yourSecretKeyGoesHere"
+            "APCA-API-KEY-ID": environment_variable["ALPACA_API_KEY_ID"],
+            "APCA-API-SECRET-KEY": environment_variable["ALPACA_API_SECRET_KEY"]
         }
 
         response = requests.get(url, headers=headers)
