@@ -13,11 +13,9 @@ class AlpacaWrapper(QuoteAPIProtocol):
         # and then should probably create a "url parameters" thing that stores symbols={symbol}
         # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
 
-        environment_variable = EnvironmentVariable()
-
         headers = {
-            "APCA-API-KEY-ID": environment_variable["ALPACA_API_KEY_ID"],
-            "APCA-API-SECRET-KEY": environment_variable["ALPACA_API_SECRET_KEY"]
+            "APCA-API-KEY-ID": EnvironmentVariable()["ALPACA_API_KEY_ID"],
+            "APCA-API-SECRET-KEY": EnvironmentVariable()["ALPACA_API_SECRET_KEY"]
         }
 
         response = requests.get(url, headers=headers)
