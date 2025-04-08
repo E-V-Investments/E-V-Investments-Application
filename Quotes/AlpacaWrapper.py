@@ -14,8 +14,8 @@ class AlpacaWrapper(QuoteAPIProtocol):
         # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
 
         headers = {
-            "APCA-API-KEY-ID": EnvironmentVariable()["ALPACA_API_KEY_ID"],
-            "APCA-API-SECRET-KEY": EnvironmentVariable()["ALPACA_API_SECRET_KEY"]
+            "APCA-API-KEY-ID": EnvironmentVariable()("ALPACA_API_KEY_ID"),
+            "APCA-API-SECRET-KEY": EnvironmentVariable()("ALPACA_API_SECRET_KEY")
         }
 
         response = requests.get(url, headers=headers)
