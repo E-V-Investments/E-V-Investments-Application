@@ -1,4 +1,4 @@
-import requests # TODO: Add requests to requirement.text
+import requests
 from Quotes.QuoteAPIProtocol import QuoteAPIProtocol
 from Quotes.EnvironmentWrapper import EnvironmentVariable
 from models.quote import Quote
