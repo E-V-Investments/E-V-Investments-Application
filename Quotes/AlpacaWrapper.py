@@ -1,23 +1,19 @@
 import requests
+
+from Quotes.AlpacaRequestBuilder import AlpacaRequestBuilder
 from Quotes.QuoteAPIProtocol import QuoteAPIProtocol
-from Quotes.EnvironmentWrapper import EnvironmentVariable
 from models.quote import Quote
 
 
 class AlpacaWrapper(QuoteAPIProtocol):
-    MARKET_DATA_API_BASE_URL = "https://data.alpaca.markets/v2"
-    LATEST_QUOTES_ENDPOINT = "stocks/quotes/latest"
-
+    def __init__(self, api_key: str, secret_key: str, builder: AlpacaRequestBuilder):
+        self.api_key = api_key
+        self.secret_key = secret_key
+        self.builder = builder
 
     def fetch_quote(self, symbol: str) -> Quote:
-        query_params = f"symbols={symbol}"
-        url = f"{self.MARKET_DATA_API_BASE_URL}/{self.LATEST_QUOTES_ENDPOINT}?{query_params}"
-        # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
-
-        headers = {
-            "APCA-API-KEY-ID": EnvironmentVariable()("ALPACA_API_KEY_ID"),
-            "APCA-API-SECRET-KEY": EnvironmentVariable()("ALPACA_API_SECRET_KEY")
-        }
+        url = self.builder.build_latest_quote_url(symbol)
+        headers = AlpacaRequestBuilder.build_headers(self.api_key, self.secret_key)
 
         response = requests.get(url, headers=headers)
         response.raise_for_status()
