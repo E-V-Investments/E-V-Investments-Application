@@ -2,7 +2,7 @@ from MarketData.QuoteAPIProtocol import QuoteAPIProtocol
 from models.quote import Quote
 
 
-class QuoteService:
+class MarketDataService:
     def __init__(self, quote_api: QuoteAPIProtocol):
         self.quote_api = quote_api
 
