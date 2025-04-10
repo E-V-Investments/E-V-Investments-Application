@@ -1,1 +1,5 @@
 requests>=2.32.3
+
+# Pydantic provides Swift Codable-style JSON decoding in Python, with type validation and auto-parsing.
+# We're using it to model responses from the Alpaca API, such as LatestQuoteResponse and Quote.
+pydantic>=2.0
