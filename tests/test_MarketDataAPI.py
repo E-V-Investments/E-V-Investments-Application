@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from MarketData.AlpacaWrapper import AlpacaWrapper
+from MarketData.MarketDataAPI import MarketDataAPI
 from models.quote import Quote
 
 
-class TestAlpacaWrapper(unittest.TestCase):
+class TestMarketDataAPI(unittest.TestCase):
 
-    @patch("MarketData.AlpacaWrapper.EnvironmentVariable")
-    @patch("MarketData.AlpacaWrapper.requests.get")
+    @patch("MarketData.MarketDataAPI.EnvironmentVariable")
+    @patch("MarketData.MarketDataAPI.requests.get")
     def test_fetch_quote_successful(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
@@ -27,10 +27,10 @@ class TestAlpacaWrapper(unittest.TestCase):
         }
         mock_get.return_value = mock_response
 
-        wrapper = AlpacaWrapper()
+        market_data_api = MarketDataAPI()
 
         # Act
-        result = wrapper.fetch_quote("AAPL")
+        result = market_data_api.fetch_quote("AAPL")
 
         # Assert
         self.assertIsInstance(result, Quote)
@@ -39,8 +39,8 @@ class TestAlpacaWrapper(unittest.TestCase):
         self.assertEqual(result.bid_price, 180.0)
         self.assertEqual(result.timestamp, "2025-04-04T19:59:59.874606332Z")
 
-    @patch("MarketData.AlpacaWrapper.EnvironmentVariable")
-    @patch("MarketData.AlpacaWrapper.requests.get")
+    @patch("MarketData.MarketDataAPI.EnvironmentVariable")
+    @patch("MarketData.MarketDataAPI.requests.get")
     def test_fetch_quote_raises_for_missing_quotes_key(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
@@ -52,16 +52,16 @@ class TestAlpacaWrapper(unittest.TestCase):
         mock_response.json.return_value = {}
         mock_get.return_value = mock_response
 
-        wrapper = AlpacaWrapper()
+        market_data_api = MarketDataAPI()
 
         # Act / Assert
         with self.assertRaises(ValueError) as context:
-            wrapper.fetch_quote("AAPL")
+            market_data_api.fetch_quote("AAPL")
 
         self.assertIn("No latest quote available for symbol", str(context.exception))
 
-    @patch("MarketData.AlpacaWrapper.EnvironmentVariable")
-    @patch("MarketData.AlpacaWrapper.requests.get")
+    @patch("MarketData.MarketDataAPI.EnvironmentVariable")
+    @patch("MarketData.MarketDataAPI.requests.get")
     def test_fetch_quote_raises_on_http_error(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
@@ -72,11 +72,11 @@ class TestAlpacaWrapper(unittest.TestCase):
         mock_response.raise_for_status.side_effect = Exception("HTTP Error")
         mock_get.return_value = mock_response
 
-        wrapper = AlpacaWrapper()
+        market_data_api = MarketDataAPI()
 
         # Act / Assert
         with self.assertRaises(Exception) as context:
-            wrapper.fetch_quote("AAPL")
+            market_data_api.fetch_quote("AAPL")
 
         self.assertIn("HTTP Error", str(context.exception))
 
