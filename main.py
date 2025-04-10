@@ -12,5 +12,5 @@ api = MarketDataAPI(api_key=api_key, secret_key=secret_key, builder=builder)
 
 market_data_service = MarketDataService(market_data_api=api)
 
-quote = market_data_service.fetch_quote("AAPL")
+quote = market_data_service.fetch_latest_quote("AAPL")
 print(quote)

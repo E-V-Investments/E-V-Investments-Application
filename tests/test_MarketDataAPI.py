@@ -8,7 +8,7 @@ class TestMarketDataAPI(unittest.TestCase):
 
     @patch("MarketData.MarketDataAPI.EnvironmentVariable")
     @patch("MarketData.MarketDataAPI.requests.get")
-    def test_fetch_quote_successful(self, mock_get, mock_env):
+    def test_fetch_latest_quote_successful(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
         mock_env_instance.return_value = "mock_key"
@@ -30,7 +30,7 @@ class TestMarketDataAPI(unittest.TestCase):
         market_data_api = MarketDataAPI()
 
         # Act
-        result = market_data_api.fetch_quote("AAPL")
+        result = market_data_api.fetch_latest_quote("AAPL")
 
         # Assert
         self.assertIsInstance(result, Quote)
@@ -41,7 +41,7 @@ class TestMarketDataAPI(unittest.TestCase):
 
     @patch("MarketData.MarketDataAPI.EnvironmentVariable")
     @patch("MarketData.MarketDataAPI.requests.get")
-    def test_fetch_quote_raises_for_missing_quotes_key(self, mock_get, mock_env):
+    def test_fetch_latest_quote_raises_for_missing_quotes_key(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
         mock_env_instance.return_value = "mock_key"
@@ -56,13 +56,13 @@ class TestMarketDataAPI(unittest.TestCase):
 
         # Act / Assert
         with self.assertRaises(ValueError) as context:
-            market_data_api.fetch_quote("AAPL")
+            market_data_api.fetch_latest_quote("AAPL")
 
         self.assertIn("No latest quote available for symbol", str(context.exception))
 
     @patch("MarketData.MarketDataAPI.EnvironmentVariable")
     @patch("MarketData.MarketDataAPI.requests.get")
-    def test_fetch_quote_raises_on_http_error(self, mock_get, mock_env):
+    def test_fetch_latest_quote_raises_on_http_error(self, mock_get, mock_env):
         # Arrange
         mock_env_instance = MagicMock()
         mock_env_instance.return_value = "mock_key"
@@ -76,7 +76,7 @@ class TestMarketDataAPI(unittest.TestCase):
 
         # Act / Assert
         with self.assertRaises(Exception) as context:
-            market_data_api.fetch_quote("AAPL")
+            market_data_api.fetch_latest_quote("AAPL")
 
         self.assertIn("HTTP Error", str(context.exception))
 

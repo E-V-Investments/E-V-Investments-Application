@@ -11,7 +11,7 @@ class MarketDataAPI(MarketDataAPIProtocol):
         self.secret_key = secret_key
         self.builder = builder
 
-    def fetch_quote(self, symbol: str) -> Quote:
+    def fetch_latest_quote(self, symbol: str) -> Quote:
         url = self.builder.build_latest_quote_url(symbol)
         headers = AlpacaRequestBuilder.build_headers(self.api_key, self.secret_key)
 
