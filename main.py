@@ -1,11 +1,12 @@
 from Quotes.AlpacaRequestBuilder import AlpacaRequestBuilder
-from Quotes.EnvironmentWrapper import EnvironmentVariable
+from Quotes.Environment import Environment
 from Quotes.QuoteService import QuoteService
 from Quotes.AlpacaWrapper import AlpacaWrapper
 
 
-api_key = EnvironmentVariable()("ALPACA_API_KEY_ID")
-secret_key = EnvironmentVariable()("ALPACA_API_SECRET_KEY")
+env = Environment()
+api_key = env.alpaca_api_key
+secret_key = env.alpaca_secret_key
 builder = AlpacaRequestBuilder()
 api = AlpacaWrapper(api_key=api_key, secret_key=secret_key, builder=builder)
 
