@@ -6,16 +6,16 @@ from MarketData.Environment import Environment
 class TestEnvironment(unittest.TestCase):
     def setUp(self):
         self.env = Environment()
-        os.environ["ALPACA_API_KEY_ID"] = "test-key-id"
-        os.environ["ALPACA_API_SECRET_KEY"] = "test-secret"
+        os.environ["ALPACA_API_KEY"] = "test-key-id"
+        os.environ["ALPACA_SECRET_KEY"] = "test-secret"
 
     def tearDown(self):
         # Clean up environment so tests are isolated
-        os.environ.pop("ALPACA_API_KEY_ID", None)
-        os.environ.pop("ALPACA_API_SECRET_KEY", None)
+        os.environ.pop("ALPACA_API_KEY", None)
+        os.environ.pop("ALPACA_SECRET_KEY", None)
 
     def test_call_returns_env_var_value(self):
-        result = self.env("ALPACA_API_KEY_ID")
+        result = self.env("ALPACA_API_KEY")
         self.assertEqual(result, "test-key-id")
 
     def test_call_raises_error_if_missing(self):
@@ -32,8 +32,8 @@ class TestEnvironment(unittest.TestCase):
         self.assertEqual(result, "test-secret")
 
     def test_constants_are_correct(self):
-        self.assertEqual(self.env.ALPACA_API_KEY_ID, "ALPACA_API_KEY_ID")
-        self.assertEqual(self.env.ALPACA_API_SECRET_KEY, "ALPACA_API_SECRET_KEY")
+        self.assertEqual(self.env.ALPACA_API_KEY, "ALPACA_API_KEY")
+        self.assertEqual(self.env.ALPACA_SECRET_KEY, "ALPACA_SECRET_KEY")
 
 
 if __name__ == "__main__":

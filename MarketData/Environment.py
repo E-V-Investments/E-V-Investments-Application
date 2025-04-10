@@ -19,8 +19,8 @@ import os
 class Environment:
     # Constants for environment variable names
     # Please keep this list in alphabetical order.
-    ALPACA_API_KEY_ID = "ALPACA_API_KEY_ID"
-    ALPACA_API_SECRET_KEY = "ALPACA_API_SECRET_KEY"
+    ALPACA_API_KEY = "ALPACA_API_KEY"
+    ALPACA_SECRET_KEY = "ALPACA_SECRET_KEY"
 
     def __call__(self, environment_variable_name: str):
         value = os.getenv(environment_variable_name)
@@ -30,8 +30,8 @@ class Environment:
 
     @property
     def alpaca_api_key(self) -> str:
-        return self(self.ALPACA_API_KEY_ID)
+        return self(self.ALPACA_API_KEY)
 
     @property
     def alpaca_secret_key(self) -> str:
-        return self(self.ALPACA_API_SECRET_KEY)
+        return self(self.ALPACA_SECRET_KEY)
