@@ -1,11 +1,11 @@
 import requests
 
 from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
-from MarketData.QuoteAPIProtocol import QuoteAPIProtocol
+from MarketData.MarketDataAPIProtocol import MarketDataAPIProtocol
 from models.quote import Quote
 
 
-class AlpacaWrapper(QuoteAPIProtocol):
+class AlpacaWrapper(MarketDataAPIProtocol):
     def __init__(self, api_key: str, secret_key: str, builder: AlpacaRequestBuilder):
         self.api_key = api_key
         self.secret_key = secret_key

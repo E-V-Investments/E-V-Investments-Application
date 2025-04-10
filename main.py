@@ -10,7 +10,7 @@ secret_key = env.alpaca_secret_key
 builder = AlpacaRequestBuilder()
 api = AlpacaWrapper(api_key=api_key, secret_key=secret_key, builder=builder)
 
-market_data_service = MarketDataService(quote_api=api)
+market_data_service = MarketDataService(market_data_api=api)
 
 quote = market_data_service.fetch_quote("AAPL")
 print(quote)

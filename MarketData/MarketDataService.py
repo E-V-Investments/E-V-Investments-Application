@@ -1,10 +1,10 @@
-from MarketData.QuoteAPIProtocol import QuoteAPIProtocol
+from MarketData.MarketDataAPIProtocol import MarketDataAPIProtocol
 from models.quote import Quote
 
 
 class MarketDataService:
-    def __init__(self, quote_api: QuoteAPIProtocol):
-        self.quote_api = quote_api
+    def __init__(self, market_data_api: MarketDataAPIProtocol):
+        self.market_data_api = market_data_api
 
     def fetch_quote(self, symbol: str) -> Quote:
-        return self.quote_api.fetch_quote(symbol)
+        return self.market_data_api.fetch_quote(symbol)
