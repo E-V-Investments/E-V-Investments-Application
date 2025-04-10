@@ -1,3 +1,4 @@
+# TODO: Give context about why we are requiring requests
 requests>=2.32.3
 
 # Pydantic provides Swift Codable-style JSON decoding in Python, with type validation and auto-parsing.
