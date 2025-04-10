@@ -5,12 +5,13 @@ from models.quote import Quote
 
 
 class AlpacaWrapper(QuoteAPIProtocol):
-    BASE_URL = "https://data.alpaca.markets/v2/stocks"
-    # Do we want to include "stocks" in our "base url"? or have it as part of some url_path variable?
+    MARKET_DATA_API_BASE_URL = "https://data.alpaca.markets/v2"
+    LATEST_QUOTES_ENDPOINT = "stocks/quotes/latest"
+
 
     def fetch_quote(self, symbol: str) -> Quote:
-        url = f"{self.BASE_URL}/quotes/latest?symbols={symbol}"
-        # and then should probably create a "url parameters" thing that stores symbols={symbol}
+        query_params = f"symbols={symbol}"
+        url = f"{self.MARKET_DATA_API_BASE_URL}/{self.LATEST_QUOTES_ENDPOINT}?{query_params}"
         # i'm thinking we do a request builder maybe, get some of this logic out of the get_quote method
 
         headers = {
