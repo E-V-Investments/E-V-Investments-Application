@@ -1,6 +1,6 @@
 import unittest
 import os
-from Quotes.Environment import Environment
+from MarketData.Environment import Environment
 
 
 class TestEnvironment(unittest.TestCase):

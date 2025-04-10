@@ -1,4 +1,4 @@
-from Quotes.QuoteAPIProtocol import QuoteAPIProtocol
+from MarketData.QuoteAPIProtocol import QuoteAPIProtocol
 from models.quote import Quote
 
 

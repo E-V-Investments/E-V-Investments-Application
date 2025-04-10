@@ -1,7 +1,7 @@
 import requests
 
-from Quotes.AlpacaRequestBuilder import AlpacaRequestBuilder
-from Quotes.QuoteAPIProtocol import QuoteAPIProtocol
+from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
+from MarketData.QuoteAPIProtocol import QuoteAPIProtocol
 from models.quote import Quote
 
 

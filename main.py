@@ -1,7 +1,7 @@
-from Quotes.AlpacaRequestBuilder import AlpacaRequestBuilder
-from Quotes.Environment import Environment
-from Quotes.QuoteService import QuoteService
-from Quotes.AlpacaWrapper import AlpacaWrapper
+from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
+from MarketData.Environment import Environment
+from MarketData.QuoteService import QuoteService
+from MarketData.AlpacaWrapper import AlpacaWrapper
 
 
 env = Environment()
