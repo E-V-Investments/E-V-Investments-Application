@@ -1,5 +1,5 @@
 import unittest
-from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
+from MarketData.Alpaca.AlpacaRequestBuilder import AlpacaRequestBuilder
 
 
 class TestAlpacaRequestBuilder(unittest.TestCase):

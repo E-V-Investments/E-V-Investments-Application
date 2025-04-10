@@ -1,6 +1,6 @@
 import requests
 
-from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
+from MarketData.Alpaca.AlpacaRequestBuilder import AlpacaRequestBuilder
 from MarketData.MarketDataAPIProtocol import MarketDataAPIProtocol
 from models.quote import Quote
 

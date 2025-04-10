@@ -1,4 +1,4 @@
-from MarketData.AlpacaRequestBuilder import AlpacaRequestBuilder
+from MarketData.Alpaca.AlpacaRequestBuilder import AlpacaRequestBuilder
 from MarketData.Environment import Environment
 from MarketData.MarketDataService import MarketDataService
 from MarketData.MarketDataAPI import MarketDataAPI
