@@ -1,3 +1,5 @@
+import datetime
+import requests
 import unittest
 from unittest.mock import patch, MagicMock
 
@@ -43,10 +45,44 @@ class TestMarketDataAPI(unittest.TestCase):
         self.assertEqual(result.symbol, "AAPL")
         self.assertEqual(result.ask_price, 197.0)
         self.assertEqual(result.bid_price, 180.0)
-        self.assertEqual(result.timestamp, "2025-04-04T19:59:59.874606332Z")
+        self.assertEqual(
+            result.timestamp,
+            datetime.datetime(2025, 4, 4, 19, 59, 59, 874606, tzinfo=datetime.timezone.utc)
+        )
 
     @patch("MarketData.MarketDataAPI.requests.get")
-    def test_fetch_latest_quote_raises_for_missing_quotes_key(self, mock_get):
+    def test_fetch_latest_quote_missing_symbol_raises(self, mock_get):
+        # Arrange
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "quotes": {
+                "TSLA": {  # Note: no "AAPL" here
+                    "ap": 200,
+                    "as": 5,
+                    "ax": "V",
+                    "bp": 195,
+                    "bs": 3,
+                    "bx": "V",
+                    "c": ["R"],
+                    "t": "2025-04-04T20:00:00.000000Z",
+                    "z": "C"
+                }
+            }
+        }
+        mock_get.return_value = mock_response
+
+        builder = AlpacaRequestBuilder()
+        api = MarketDataAPI(secret_key="secret", api_key="key", builder=builder)
+
+        # Act + Assert
+        with self.assertRaises(ValueError) as context:
+            api.fetch_latest_quote("AAPL")
+
+        self.assertIn("No latest quote available for symbol: AAPL", str(context.exception))
+
+    @patch("MarketData.MarketDataAPI.requests.get")
+    def test_fetch_latest_quote_empty_response_raises(self, mock_get):
         # Arrange
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -60,23 +96,24 @@ class TestMarketDataAPI(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             market_data_api.fetch_latest_quote("AAPL")
 
-        self.assertIn("No latest quote available for symbol", str(context.exception))
+        self.assertIn("Failed to parse Alpaca response", str(context.exception))
 
     @patch("MarketData.MarketDataAPI.requests.get")
-    def test_fetch_latest_quote_raises_on_http_error(self, mock_get):
+    def test_fetch_latest_quote_server_error_raises(self, mock_get):
         # Arrange
         mock_response = MagicMock()
-        mock_response.raise_for_status.side_effect = Exception("HTTP Error")
+        mock_response.status_code = 500
+        mock_response.raise_for_status.side_effect = requests.HTTPError("Internal Server Error")
         mock_get.return_value = mock_response
 
         builder = AlpacaRequestBuilder()
-        market_data_api = MarketDataAPI(secret_key="secret-key", api_key="api-key", builder=builder)
+        api = MarketDataAPI(secret_key="secret", api_key="key", builder=builder)
 
-        # Act / Assert
-        with self.assertRaises(Exception) as context:
-            market_data_api.fetch_latest_quote("AAPL")
+        # Act + Assert
+        with self.assertRaises(requests.HTTPError) as context:
+            api.fetch_latest_quote("AAPL")
 
-        self.assertIn("HTTP Error", str(context.exception))
+        self.assertIn("Internal Server Error", str(context.exception))
 
 
 if __name__ == "__main__":

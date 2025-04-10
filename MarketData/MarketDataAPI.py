@@ -29,13 +29,6 @@ class MarketDataAPI(MarketDataAPIProtocol):
         if symbol not in parsed.quotes:
             raise ValueError(f"No latest quote available for symbol: {symbol}")
 
-        alpaca_quote = parsed.quotes[symbol]
-
         # Convert to our app-level Quote model (not the raw API quote)
-        return Quote(
-            symbol=symbol,
-            ask_price=alpaca_quote.ap,
-            bid_price=alpaca_quote.bp,
-            timestamp=alpaca_quote.t,
-        )
+        return Quote.from_alpaca(symbol, parsed.quotes[symbol])
 
