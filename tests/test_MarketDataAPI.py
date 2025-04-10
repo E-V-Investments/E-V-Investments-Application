@@ -16,9 +16,17 @@ class TestMarketDataAPI(unittest.TestCase):
         mock_response.json.return_value = {
             "quotes": {
                 "AAPL": {
-                    "ap": 197.0,
-                    "bp": 180.0,
-                    "t": "2025-04-04T19:59:59.874606332Z"
+                    "ap": 197,
+                    "as": 10,
+                    "ax": "V",
+                    "bp": 180,
+                    "bs": 2,
+                    "bx": "V",
+                    "c": [
+                        "R"
+                    ],
+                    "t": "2025-04-04T19:59:59.874606332Z",
+                    "z": "C"
                 }
             }
         }
