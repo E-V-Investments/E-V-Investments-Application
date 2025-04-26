@@ -22,13 +22,16 @@ class MarketDataAPI(MarketDataAPIProtocol):
 
         # use Pydantic to validate + parse the full JSON
         try:
-            parsed = LatestQuoteResponse.model_validate(response.json())
+            latest_quote_response = LatestQuoteResponse.model_validate(response.json())
         except Exception as e:
             raise ValueError(f"Failed to parse Alpaca response: {e}")
 
-        if symbol not in parsed.quotes:
+        quotes_dictionary = latest_quote_response.quotes
+        if symbol not in quotes_dictionary:
             raise ValueError(f"No latest quote available for symbol: {symbol}")
 
         # Convert to our app-level Quote model (not the raw API quote)
-        return Quote.from_alpaca(symbol, parsed.quotes[symbol])
+        alpaca_quote = quotes_dictionary[symbol]
+        our_quote_model = Quote.from_alpaca(symbol, alpaca_quote)
+        return our_quote_model
 
