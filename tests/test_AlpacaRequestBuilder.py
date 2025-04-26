@@ -4,6 +4,8 @@ from MarketData.Alpaca.AlpacaRequestBuilder import AlpacaRequestBuilder
 
 class TestAlpacaRequestBuilder(unittest.TestCase):
 
+    # <editor-fold desc="Initializer Tests">
+
     def test_initializer_defaults(self):
         # Act
         builder = AlpacaRequestBuilder()
@@ -42,6 +44,10 @@ class TestAlpacaRequestBuilder(unittest.TestCase):
         self.assertEqual(builder.base_url, "https://la.dee.da")
         self.assertEqual(builder.api_version, "v100")
 
+    # </editor-fold>
+
+    # <editor-fold desc="Magic Method Tests">
+
     def test_repr(self):
         # Arrange
         builder = AlpacaRequestBuilder(
@@ -70,6 +76,10 @@ class TestAlpacaRequestBuilder(unittest.TestCase):
         expected = "Alpaca Request Builder (https://la.dee.da/v100)"
         self.assertEqual(output_string, expected)
 
+    # </editor-fold>
+
+    # <editor-fold desc="build_headers() Tests">
+
     def test_build_headers(self):
         # Arrange
         builder = AlpacaRequestBuilder()
@@ -83,6 +93,10 @@ class TestAlpacaRequestBuilder(unittest.TestCase):
         self.assertEqual(headers["APCA-API-KEY-ID"], api_key)
         self.assertEqual(headers["APCA-API-SECRET-KEY"], secret_key)
         self.assertEqual(len(headers), 2)
+
+    # </editor-fold>
+
+    # <editor-fold desc="build_latest_quote_url() Tests">
 
     def test_build_latest_quote_url(self):
         # Arrange
@@ -144,6 +158,7 @@ class TestAlpacaRequestBuilder(unittest.TestCase):
         expected_url = "https://la.dee.da/v100/stocks/quotes/latest?symbols="
         self.assertEqual(url, expected_url)
 
+    # </editor-fold>
 
 if __name__ == "__main__":
     unittest.main()
