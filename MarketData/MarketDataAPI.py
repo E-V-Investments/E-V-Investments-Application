@@ -1,3 +1,15 @@
+"""
+The MarketDataAPI class abstracts communication with the Alpaca API for market data. It is used by the MarketDataService
+to fetch financial data, interpret the API response, and return data in a format suitable for the service.
+
+This class insulates the MarketDataService from changes to the Alpaca API, meaning that if Alpaca's API changes, only
+this class needs to be modified. Similarly, if we choose to switch from Alpaca to another financial service provider,
+the MarketDataService remains unaffected.
+
+This class exposes methods like `fetch_latest_quote`, which retrieves the most recent quote for a given symbol and
+returns it as a `Quote` object.
+"""
+
 import requests
 
 from MarketData.Alpaca.AlpacaRequestBuilder import AlpacaRequestBuilder

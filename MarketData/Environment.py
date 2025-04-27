@@ -1,18 +1,19 @@
-# This class wraps access to environment variables so that we are not directly calling os.getenv()
-# all over the codebase. Centralizing access here makes it easier to mock the environment during
-# unit tests and avoids repeating the same string constants in multiple places.
-#
-# To access an environment variable, either:
-#     * Use the __call__ method with the string name (e.g., env("ALPACA_API_KEY_ID"))
-#     * Or use a named property (e.g., env.alpaca_api_key)
-#
-# This class also holds constants for known environment variable names.
-# Please keep these constants in alphabetical order.
-#
-# To add support for a new environment variable:
-#     1. Add a new constant (e.g., FOO_SERVICE_TOKEN = "FOO_SERVICE_TOKEN")
-#     2. Optionally add a property for more readable access (e.g., .foo_service_token)
+"""
+This class wraps access to environment variables so that we are not directly calling os.getenv()
+all over the codebase. Centralizing access here makes it easier to mock the environment during
+unit tests and avoids repeating the same string constants in multiple places.
 
+To access an environment variable, either:
+    * Use the __call__ method with the string name (e.g., env("ALPACA_API_KEY_ID"))
+    * Or use a named property (e.g., env.alpaca_api_key)
+
+This class also holds constants for known environment variable names.
+Please keep these constants in alphabetical order.
+
+To add support for a new environment variable:
+    1. Add a new constant (e.g., FOO_SERVICE_TOKEN = "FOO_SERVICE_TOKEN")
+    2. Add a property for more readable access (e.g., .foo_service_token)
+"""
 import os
 
 

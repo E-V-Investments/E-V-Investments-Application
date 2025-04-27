@@ -1,18 +1,19 @@
-# This class is responsible for building
-#     * the full URL
-#     * any query parameters
-#     * (optionally) headers.
-# This lets the AlpacaWrapper focus only on what it does — asking for a quote — while pushing the URL-building
-# mechanics to a specialized class.
-#
-# The base URL and version are configurable. So if needed, you can do this:
-# builder = AlpacaRequestBuilder(
-#     base_url="https://sandbox-data.alpaca.markets",  # hypothetical dev environment
-#     api_version="v3"  # or some future version
-# )
-# or just use the defaults:
-# builder = AlpacaRequestBuilder()
+"""
+This class is responsible for building
+    * the full URL
+    * any query parameters
+    * (optionally) headers.
+This lets the AlpacaWrapper focus only on what it does — asking for a quote — while pushing the URL-building
+mechanics to a specialized class.
 
+The base URL and version are configurable. So if needed, you can do this:
+    builder = AlpacaRequestBuilder(
+        base_url="https://sandbox-data.alpaca.markets",  # hypothetical dev environment
+        api_version="v3"  # or some future version
+    )
+or just use the defaults:
+    builder = AlpacaRequestBuilder()
+"""
 from typing import Dict
 
 

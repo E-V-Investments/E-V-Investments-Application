@@ -1,3 +1,7 @@
+"""
+This class models the Quote object that is contained by the Response object that gets returned from Alpaca's MarketData
+API's Stock / Latest quotes endpoint https://docs.alpaca.markets/reference/stocklatestquotes-1
+"""
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime

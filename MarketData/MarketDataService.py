@@ -1,3 +1,6 @@
+"""
+need to write a docstring for this class
+"""
 from MarketData.MarketDataAPIProtocol import MarketDataAPIProtocol
 from models.quote import Quote
 
