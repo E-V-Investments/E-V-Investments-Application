@@ -1,0 +1,13 @@
+"""
+need to write a docstring for this class
+"""
+from MarketData.MarketDataAPIProtocol import MarketDataAPIProtocol
+from models.quote import Quote
+
+
+class MarketDataService:
+    def __init__(self, market_data_api: MarketDataAPIProtocol):
+        self.market_data_api = market_data_api
+
+    def fetch_latest_quote(self, symbol: str) -> Quote:
+        return self.market_data_api.fetch_latest_quote(symbol)

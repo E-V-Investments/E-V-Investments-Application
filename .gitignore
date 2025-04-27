@@ -1,2 +1,27 @@
-# ignore PyCharm project level config folder
+### Ignore PyCharm project-level config folder
+# This contains your local IDE settings, window layout, breakpoints, and other user-specific files.
+# It’s not useful to share with your team, and it can clutter your repo with machine-specific data.
 .idea/
+
+### Ignore Python's bytecode cache directories
+# When you run a Python script, the interpreter compiles it to bytecode (.pyc files) and stores those
+# in a __pycache__ directory, usually next to your .py files. This speeds up subsequent runs by avoiding
+# redundant recompilation.
+#
+# __pycache__ and the .pyc files inside it are generated automatically and are specific to your Python version
+# and system. They should not be committed to version control.
+__pycache__/
+
+### Ignore Python's compiled and platform-specific files
+# This glob pattern tells Git to ignore:
+#     *.pyc → compiled bytecode files
+#     *.pyo → optimized bytecode (rare and mostly deprecated)
+#     *.pyd → compiled Python extensions on Windows (similar to .so on Unix)
+#
+# Example matches:
+#     main.pyc
+#     module.pyo
+#     extension.pyd
+#
+# Basically: “ignore all the non-source Python artifacts generated during execution or compilation.”
+*.py[cod]
